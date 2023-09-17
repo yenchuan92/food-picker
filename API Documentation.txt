@@ -1,0 +1,19 @@
+GET /foodPlaces
+
+Description: This API returns an array of all the existing food places that were input by the user. v Do note that the data does not persist whenever the backend server restarts.
+Arguments: None.
+Sample response: ["Food Place 1", "Food Place 2", "Food Place 3"]
+
+
+GET /randomFoodPlace
+
+Description: This API returns a random food place by using Math.random, out of all the existing food places that were input by the user. If no food places exist, an error will be thrown.
+Arguments: None.
+Sample response: "Food Place 2"
+
+
+POST /addFoodPlace
+
+Description: This API adds a food place to the existing backend array(if a database is implemented, it should add to the database). If an invalid or a duplicate name is provided, an error will be thrown.
+Arguments: Name - A string denoting the name of the food place. Certain special characters are allowed, such as !@&-. Otherwise, only numbers and letters are allowed.
+Sample response: "Food Place 3"

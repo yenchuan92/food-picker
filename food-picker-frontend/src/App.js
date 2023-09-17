@@ -45,7 +45,6 @@ function App() {
     axios
       .post("http://localhost:8000/addFoodPlace", { name: addText })
       .then((res) => {
-        // console.log(res.data);
         if (res.status === 201) {
           // then set the success message to show
           setAddedSuccess(true);
@@ -70,7 +69,6 @@ function App() {
       .get("http://localhost:8000/foodPlaces")
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data, "GET called");
           // set data into state
           setOptions(res.data);
           // start the loop for randomizing effect
@@ -104,8 +102,6 @@ function App() {
         setErrorMessage(err.response.data.message);
       });
   };
-
-  // extract this component and function out into a separate component since it will keep rerendering!
 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -144,49 +140,64 @@ function App() {
     }, 300);
   };
 
-  // TODO: convert input with its state into its own component
-  // alternatively, use React.memo on those components which don't rely on state updates
+  // performance optimizations that can be done:
+  // extract the randomization picker into a component of its own, along with the required states, so that state updates will not cause other components to keep rerendering!
+  // can also do the same for other components
+  // alternatively, use React.memo for components and specify which states they should only depend on when deciding whether to rerender!
 
   return (
     <div className="App">
-      <div>Food Picker</div>
-      <div display="flex">
-        <div>
+      <div className="title">Food Picker App</div>
+      <div className="addFoodContainer">
+        <div className="addFood">
           <input
             placeholder="Add a Food Option..."
             onChange={(e) => addTextInputChange(e)}
+            className="addFoodInput"
           />
-          {validationErr && (
-            <div color="red">Please key in a proper food option.</div>
-          )}
-          {addedSuccess && <div color="green">Option added successfully!</div>}
-          {addedFailure && <div color="red">{errorMessage}</div>}
+          <button
+            onClick={(e) => handleAddOptionClick(e)}
+            disabled={validationErr}
+            className="addFoodButton"
+          >
+            Add Food Option
+          </button>
+        </div>
+
+        {validationErr && (
+          <div className="errorText">Please key in a proper food option.</div>
+        )}
+        {addedSuccess && (
+          <div className="successText">Option added successfully!</div>
+        )}
+        {addedFailure && <div className="errorText">{errorMessage}</div>}
+      </div>
+
+      <div className="randomFood">
+        <div className="randomFoodHeader">Actual requirement</div>
+        <button
+          onClick={(e) => handleGetRandomOptionClick(e)}
+          className="randomFoodButton"
+        >
+          Choose a Food Place
+        </button>
+        {randomFailure && <div className="errorText">{errorMessage}</div>}
+        <div className="randomFoodText">{randomFoodPlace}</div>
+      </div>
+
+      <div className="randomFood">
+        <div className="randomFoodHeader">
+          Extra (frontend randomization effect)
         </div>
 
         <button
-          onClick={(e) => handleAddOptionClick(e)}
-          disabled={validationErr}
+          onClick={(e) => handleGetAllOptionsClick(e)}
+          className="randomFoodButton"
         >
-          Add Food Option
-        </button>
-      </div>
-
-      <div>
-        <div>Actual requirement</div>
-        <div>{randomFoodPlace}</div>
-        <button onClick={(e) => handleGetRandomOptionClick(e)}>
           Choose a Food Place
         </button>
-        {randomFailure && <div color="red">{errorMessage}</div>}
-      </div>
-
-      <div>
-        <div>Extra (frontend randomization effect)</div>
+        {randomFailure && <div className="errorText">{errorMessage}</div>}
         <div>{randomOption}</div>
-        <button onClick={(e) => handleGetAllOptionsClick(e)}>
-          Choose a Food Place
-        </button>
-        {randomFailure && <div color="red">{errorMessage}</div>}
       </div>
     </div>
   );

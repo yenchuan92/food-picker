@@ -1,38 +1,65 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.addFoodContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  box-sizing: border-box;
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 
-.App-link {
-  color: #61dafb;
+.addFood {
+  display: flex;
+  height: 32px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.addFoodInput {
+  width: 200px
+}
+
+.addFoodButton {
+  margin-left: 16px;
+}
+
+.successText {
+  color: green
+}
+
+.errorText {
+  color: red
+}
+
+.randomFood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.randomFoodHeader {
+  font-size: 24px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.randomFoodText {
+  font-size: 24px;
+  min-height: 24px;
+}
+
+.randomFoodButton {
+  width:fit-content;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }

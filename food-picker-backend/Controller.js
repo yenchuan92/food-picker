@@ -19,7 +19,9 @@ const getRandomInt = (min, max) => {
 };
 
 const addFoodPlace = (name) => {
-  if (name && !foodPlaces.includes(name)) {
+  if (name && /[^0-9A-Za-z\-@!&]/.test(name)) {
+    throw new Error("Invalid characters detected");
+  } else if (name && !foodPlaces.includes(name)) {
     foodPlaces.push(name);
     return name;
   } else if (name && foodPlaces.includes(name)) {
